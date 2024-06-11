@@ -72,8 +72,10 @@ export class Image {
     }
     fs.accessSync(filePath, fs.constants.R_OK);
 
+    var name = filePath.trim(".png");
+
     const png = PNG.sync.read(fs.readFileSync(filePath));
-    return new Image(png.width, png.height, Uint8ClampedArray.from(png.data));
+    return new Image(png.width, png.height, Uint8ClampedArray.from(png.data),name);
   }
 
   /**
@@ -112,12 +114,13 @@ export class Image {
    * @param height The images height
    * @param data The pixel data of the image
    */
-  constructor(width, height, data) {
+  constructor(width, height, data,name) {
     assertValidWidthAndHeight(width, height);
 
     this.width = width;
     this.height = height;
     this.data = data;
+    this.name = name;
 
     this.rowSize = this.width * 4;
   }
@@ -243,6 +246,11 @@ export class Image {
     }
 
     return coords;
+  }
+
+  getName(){
+    let r = this.name.replace("images/","").replace(".png","");
+    return r;
   }
 
   /**

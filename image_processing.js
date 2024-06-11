@@ -1,7 +1,44 @@
 // actual image processing functions
 
 import {Image} from "../mapping/image.js";
+import fs from "fs";
 
+
+
+// function toAverage(img){
+//     const copyImg = img.copy();
+//     const avg = getAverage(img);
+//     for (let x = 0; x < copyImg.width; ++x) {
+//         for (let y = 0; y < copyImg.height; ++y) {
+//           copyImg.setPixel(x, y, avg);
+//         }
+//       }
+//       return copyImg;
+// }
+
+export function getAverage(img){
+
+    const copyImg = img.copy();
+    let count = 0;
+    let avg = [0,0,0];
+
+    for (let x = 0; x < copyImg.width; ++x) {
+        for (let y = 0; y < copyImg.height; ++y) {
+          const pixel = copyImg.getPixel(x, y);
+          avg[0] += pixel[0];
+          avg[1] += pixel[1];
+          avg[2] += pixel[2];
+          count +=1;
+        }
+        count +=1;
+      }
+
+    avg = [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)]
+    fs.appendFileSync("averages.csv",img.getName()+","+avg.toString()+"\n");
+    console.log("did it work")
+    // return [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)];
+    return avg
+}
 
 /**
  * Saturates green color s each pixel of an image
