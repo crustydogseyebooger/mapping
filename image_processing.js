@@ -17,7 +17,6 @@ export function toAverage(img){
 }
 
 export function getAverage(img){
-
     const copyImg = img.copy();
     let count = 0;
     let avg = [0,0,0];
@@ -41,6 +40,26 @@ export function getAverage(img){
         fs.appendFileSync("averages.csv",toAdd);
     }
 
+    return avg;
+}
+
+export function getWindowAverage(img,interval){
+  let count = 0;
+  let avg = [0,0,0];
+
+  for (let i = interval[0]; i < interval[2]; i++) {
+    for (let j = interval[1]; j < interval[3]; j++) {
+      const pixel = img.getPixel(i, j);
+        avg[0] += pixel[0];
+        avg[1] += pixel[1];
+        avg[2] += pixel[2];
+        count +=1;
+      }
+      count +=1;
+    }
+
+    avg = [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)];
+    // console.log(avg);
     return avg;
 }
 
@@ -73,6 +92,7 @@ export function getClosestBlock(color){ // an rgb array
     let name = "";
     let threshold = Infinity;
     let red = 0, green = 0, blue = 0;
+    let blockAvg = [0,0,0];
 
     const contents = getCSV();
     contents.forEach(sub => {
@@ -84,25 +104,25 @@ export function getClosestBlock(color){ // an rgb array
 
         if (red*red + green*green + blue*blue <= threshold*threshold) {
             name = sub[0];
+            blockAvg = [sub[1],sub[2],sub[3]];
             threshold = red + green + blue;
         }
     })
-
-    return name;
+    // console.log([name,blockAvg]);
+    return [name, blockAvg];
 }
 
 // get window average
 // get closest block
 
 export function computeWindows(img){
+  const windowWidth = Math.floor(img.width/128); // placeholder 4 for a 16 x 16 test image
+  const windowHeight = Math.floor(img.width/128);
 
-  const windowWidth = Math.floor(img.width/4); // placeholder 4 for a 16 x 16 test image
-  const windowHeight = Math.floor(img.width/4);
+  // console.log(windowWidth,windowHeight);
 
   const intervals = [];
   let xMin = 0, yMin = 0;
-
-  // [xMin, yMin, xMax, yMax]
 
   while (xMin < img.width){
     while (yMin < img.height){
@@ -113,7 +133,12 @@ export function computeWindows(img){
     yMin = 0;
   }
 
-  console.log(intervals);
+  console.log(intervals.length);
+  return intervals.map(sub => {
+    if (sub[2] > img.width) sub[2] = img.width;
+    if (sub[3] > img.height) sub[3] = img.height;
+    return sub;
+  });
 
 
   // intervals.forEach(interval=>{
@@ -124,19 +149,27 @@ export function computeWindows(img){
   //     }
   //   }
   // })
-  
 }
 
 
-// export function toMapArt(img){ // XY interval is [xMin, xMax, yMin, yMax]
-//   const XYinterval = [0,0,0,0];
-//   for (let i = XYinterval[0]; i<img.width; i++){
-//     for (let j = XYinterval[2]; j<img.height; j++) {
-//       img.setPixel(i,j,getClosestBlock())
-//     }
-//   }
+export function mapToBlocks(img){
+  if (img.width < 128 || img.height < 128) return img; // needs error-handling
 
-// }
+  const intervals = computeWindows(img);
+  const result = img.copy();
+
+  intervals.forEach(interval=>{
+    const avg = getWindowAverage(img,interval);
+    const color = getClosestBlock(avg)[1];
+    for (let i = interval[0]; i<interval[2];i++){
+      for (let j = interval[1]; j<interval[3]; j++){
+        result.setPixel(i,j,color);
+      }
+    }
+  });
+  return result;
+}
+
 
 
 

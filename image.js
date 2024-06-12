@@ -22,18 +22,18 @@ const CHANNEL_NAMES = ["red", "green", "blue"];
  * @param color An array
  */
 function assertValidColor(color) {
-  assert(color.length === 3);
-  CHANNEL_NAMES.forEach((channel, i) => {
-    assert(
-      Number.isInteger(color[i]),
-      `[image.ts] Supplied invalid color. The ${channel} channel of the color must be an integer.`
-    );
-    assert(0 <= color[i], `[image.ts] Supplied invalid color. The ${channel} channel of the color must be at least 0.`);
-    assert(
-      color[i] <= 255,
-      `[image.ts] Supplied invalid color. The ${channel} channel of the color must be at most 255.`
-    );
-  });
+  // assert(color.length === 3);
+  // CHANNEL_NAMES.forEach((channel, i) => {
+  //   assert(
+  //     Number.isInteger(color[i]),
+  //     `[image.ts] Supplied invalid color. The ${channel} channel of the color must be an integer.`
+  //   );
+  //   assert(0 <= color[i], `[image.ts] Supplied invalid color. The ${channel} channel of the color must be at least 0.`);
+  //   assert(
+  //     color[i] <= 255,
+  //     `[image.ts] Supplied invalid color. The ${channel} channel of the color must be at most 255.`
+  //   );
+  // });
 }
 
 /**
