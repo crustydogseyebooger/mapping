@@ -71,7 +71,8 @@ export function csvArrayContains(name){
 
 export function closestBlock(color){ // an rgb array
     let name = "";
-    let curr = Infinity;
+    // let currRed = Infinity, currGreen = Infinity, currBlue = Infinity;
+    let threshold = Infinity;
     let red = 0, green = 0, blue = 0;
 
     const contents = getCSV();
@@ -82,20 +83,14 @@ export function closestBlock(color){ // an rgb array
         green = Math.abs(color[1]-sub[2]);
         blue = Math.abs(color[2]-sub[3]);
 
-        if (red + green + blue < curr) {
+        if (red*red + green*green + blue*blue <= threshold*threshold) {
             name = sub[0];
-            curr = red + green + blue;
+            threshold = red + green + blue;
         }
     })
 
     return name;
 }
-
-
-
-
-
-
 
 
 
