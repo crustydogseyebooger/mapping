@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "exec": "^0.2.1",
         "pngjs": "^6.0.0",
         "tmp": "^0.2.3"
     },
@@ -33,7 +34,6 @@
         "test:coverage": "jest ./src --coverage",
         "test:json": "jest ./src --json --outputFile=test-results.json"
     },
-    "type": "module",
     "engines": {
         "node": ">=16.0.0 <=20.0.0"
     },

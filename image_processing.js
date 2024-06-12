@@ -1,11 +1,13 @@
 // actual image processing functions
 
-import {Image} from "../mapping/image.js";
-import fs from "fs";
+// import {Image} from "../mapping/image.js";
+// import fs from "fs";
+
+var Image = require("../mapping/image.js")
+var fs = require('fs');
 
 
-
-export function toAverage(img){
+function toAverage(img){
     const copyImg = img.copy();
     const avg = getAverage(img);
     for (let x = 0; x < copyImg.width; ++x) {
@@ -16,7 +18,7 @@ export function toAverage(img){
     return copyImg;
 }
 
-export function getAverage(img){
+function getAverage(img){
     const copyImg = img.copy();
     let count = 0;
     let avg = [0,0,0];
@@ -43,7 +45,7 @@ export function getAverage(img){
     return avg;
 }
 
-export function getWindowAverage(img,interval){
+function getWindowAverage(img,interval){
   let count = 0;
   let avg = [0,0,0];
 
@@ -63,7 +65,7 @@ export function getWindowAverage(img,interval){
     return avg;
 }
 
-export function getCSV(){
+function getCSV(){
     const csv = fs.readFileSync('averages.csv').toString();
     var lines = csv.split("\n");
     lines = lines.map(str => str.trim("\r"));
@@ -77,7 +79,7 @@ export function getCSV(){
     return colors;
 }
 
-export function csvArrayContains(name){
+function csvArrayContains(name){
     const contents = getCSV();
     var toReturn = false;
     contents.forEach(sub => {
@@ -88,7 +90,7 @@ export function csvArrayContains(name){
     return toReturn;
 }
 
-export function getClosestBlock(color){ // an rgb array
+function getClosestBlock(color){ // an rgb array
     // console.log(color);
     let name = "";
     let threshold = Infinity;
@@ -118,15 +120,17 @@ export function getClosestBlock(color){ // an rgb array
 // const WINDOW_SIZE = 100;
 const WINDOW_SIZE = 128;
 
-export function computeWindows(img){
+function computeWindows(img){
+  
+
   const WINDOW_WIDTH = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
   const WINDOW_HEIGHT = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
 
   const windowWidth = Math.floor(WINDOW_WIDTH/WINDOW_SIZE); // floor or ceil?
   const windowHeight = Math.floor(WINDOW_HEIGHT/WINDOW_SIZE); 
 
-  // const windowWidth = Math.floor(img.width/4); // floor or ceil?
-  // const windowHeight = Math.floor(img.height/4); 
+  // const widthDiff = (img.width - WINDOW_WIDTH)/2;
+  // const heightDiff = (img.height - WINDOW_HEIGHT)/2;
 
   let intervals = [];
   let xMin = 0, yMin = 0;
@@ -150,7 +154,7 @@ export function computeWindows(img){
 }
 
 
-export function mapToBlocks(img){
+function mapToBlocks(img){
   // if (img.width < 128 || img.height < 128) return img; // needs error-handling
 
   const intervals = computeWindows(img);
@@ -162,7 +166,7 @@ export function mapToBlocks(img){
     const avg = getWindowAverage(img,interval);
     const block = getClosestBlock(avg);
     const color = block[1];
-    fs.appendFileSync("image_blocks.csv",block[0].toString()+"\n");
+    // fs.appendFileSync("image_blocks.csv",block[0].toString()+"\n");
 
     if (yCounter === WINDOW_SIZE) {
       xCounter += 1;
@@ -182,3 +186,7 @@ export function mapToBlocks(img){
 
 
 // }
+
+// module.exports = computeWindows;
+exports.computeWindows = computeWindows;
+exports.mapToBlocks = mapToBlocks;

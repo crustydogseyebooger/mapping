@@ -1,23 +1,26 @@
-import {Image} from "../mapping/image.js"
-import { toAverage, getAverage, getCSV, getClosestBlock, computeWindows, mapToBlocks, getWindowAverage} from "./image_processing.js";
-import fs from "fs";
+// import {Image} from "../mapping/image.js"
+// import { toAverage, getAverage, getCSV, getClosestBlock, computeWindows, mapToBlocks, getWindowAverage} from "./image_processing.js";
+// import fs from "fs";
+
+var Image = require("../mapping/image.js")
+var Image_Processing = require("./image_processing.js")
 
 
 // console.log(getCSV());
 
 // console.log(getClosestBlock([219, 26, 155]));
 
-const img = Image.loadImageFromFile("images/kirb.png");
+const img = Image.loadImageFromFile("images/bear.png");
 console.log(img.getPixel(128,128));
 
-const intervals = computeWindows(img);
+const intervals = Image_Processing.computeWindows(img);
 
 
 
 // intervals.forEach(interval=>console.log(interval));
 console.log(intervals.length);
 
-const result = mapToBlocks(img);
+const result = Image_Processing.mapToBlocks(img);
 result.show();
 console.log(result.width,result.height)
 
@@ -44,3 +47,4 @@ console.log(result.width,result.height)
 
 // console.log(img.width,img.height);
 // console.log(Math.floor(img.width/WINDOW_SIZE),Math.floor(img.height/WINDOW_SIZE));
+// REMOVED "type": "module" from json

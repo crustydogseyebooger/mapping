@@ -1,15 +1,24 @@
-// helper functions
+// // helper functions
 
-import assert from "assert";
-import { exec } from "child_process";
-import fs from "fs";
-import os from "os";
-import path from "path";
+// import assert from "assert";
+// import { exec } from "child_process";
+// import fs from "fs";
+// import os from "os";
+// import path from "path";
 
-import { PNG } from "pngjs";
-// PNG = require('pngjs').PNG;
+// import { PNG } from "pngjs";
 
-import tmp from "tmp";
+// import tmp from "tmp";
+
+
+var assert = require('assert');
+var exec = require('child_process');
+// var exec = require('exec');
+var fs = require('fs');
+var os = require('os');
+var path = require('path');
+var PNG = require('pngjs').PNG;
+var tmp = require('tmp');
 
 const IMAGES_FOLDER = path.resolve(process.cwd(), "images");
 const IMAGE_GALLERY = fs.readdirSync(IMAGES_FOLDER).map(p => path.join(IMAGES_FOLDER, p));
@@ -57,7 +66,7 @@ function assertValidWidthAndHeight(width, height) {
 
 
 
-export class Image {
+class Image {
 
   /**
    * Loads an image from the file system into memory as an `Image` object.
@@ -196,10 +205,10 @@ export class Image {
 
     if (os.platform() === "darwin") {
       // macOS
-      exec(`open ${temp.name}`);
+      exec.exec(`open ${temp.name}`);
     } else {
       // if code is not in $PATH, this will not work
-      exec(`code --reuse-window ${temp.name}`);
+      exec.exec(`code --reuse-window ${temp.name}`);
     }
   }
 
@@ -272,3 +281,5 @@ export class Image {
     return y * this.rowSize + x * 4;
   }
 }
+
+module.exports = Image;

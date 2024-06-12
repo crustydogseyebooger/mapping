@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Lol</title>
+    <!-- <script src="image_processing.js" type="module"></script> -->
 </head>
 <body>
-<h1>HTML5 Canvas</h1>
-<h2>The drawImage() Method</h2>
+<h1>Upload image</h1>
 
-<p>Image to use:</p>
-<img id="scream" src="../images/snoopy.png" alt="snoopy" width="531" height="502">
+<input type="file" onchange="previewFile()" /><br />
+<img src="" height="200" alt="Image preview" />
+<script src="script.js"></script>
 
-<p><button onclick="draw()">Tryit</button></p>
+<!-- <script src="script.js" type="module"></script> -->
 
-<p>Click Tryit to draw the image on the canvas.</p>
-<canvas id="myCanvas" width="250" height="300" style="border:1px solid grey"></canvas>
 
-<script>
-    function draw() {
-    const c = document.getElementById("myCanvas");
-    const ctx = c.getContext("2d");
-    const img = document.getElementById("scream");
-    ctx.drawImage(img, 10, 10);
-    }
-    </script>
+<div>
+    <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+    <label for="file" style="cursor: pointer;">Upload Image</label>
+    <img id="output" width="200" alt="bruh"/>
+</div>
+
+
+  
+
 
 </body>
 </html>
