@@ -69,9 +69,8 @@ export function csvArrayContains(name){
     return toReturn;
 }
 
-export function closestBlock(color){ // an rgb array
+export function getClosestBlock(color){ // an rgb array
     let name = "";
-    // let currRed = Infinity, currGreen = Infinity, currBlue = Infinity;
     let threshold = Infinity;
     let red = 0, green = 0, blue = 0;
 
@@ -91,6 +90,53 @@ export function closestBlock(color){ // an rgb array
 
     return name;
 }
+
+// get window average
+// get closest block
+
+export function computeWindows(img){
+
+  const windowWidth = Math.floor(img.width/4); // placeholder 4 for a 16 x 16 test image
+  const windowHeight = Math.floor(img.width/4);
+
+  const intervals = [];
+  let xMin = 0, yMin = 0;
+
+  // [xMin, yMin, xMax, yMax]
+
+  while (xMin < img.width){
+    while (yMin < img.height){
+      intervals.push([xMin,yMin,xMin+windowWidth,yMin+windowHeight]);
+      yMin += windowHeight;
+    }
+    xMin += windowWidth;
+    yMin = 0;
+  }
+
+  console.log(intervals);
+
+
+  // intervals.forEach(interval=>{
+  //   for (let i = interval[0]; i<interval[2];i++){
+  //     for (let j = interval[1]; j<interval[3]; j++){
+  //       if (counter % 2 === 0 ) img.setPixel(i,j,[0,0,255]);
+  //       else img.setPixel(i,j,[0,255,0])
+  //     }
+  //   }
+  // })
+  
+}
+
+
+// export function toMapArt(img){ // XY interval is [xMin, xMax, yMin, yMax]
+//   const XYinterval = [0,0,0,0];
+//   for (let i = XYinterval[0]; i<img.width; i++){
+//     for (let j = XYinterval[2]; j<img.height; j++) {
+//       img.setPixel(i,j,getClosestBlock())
+//     }
+//   }
+
+// }
 
 
 
