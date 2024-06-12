@@ -5,16 +5,16 @@ import fs from "fs";
 
 
 
-// function toAverage(img){
-//     const copyImg = img.copy();
-//     const avg = getAverage(img);
-//     for (let x = 0; x < copyImg.width; ++x) {
-//         for (let y = 0; y < copyImg.height; ++y) {
-//           copyImg.setPixel(x, y, avg);
-//         }
-//       }
-//       return copyImg;
-// }
+function toAverage(img){
+    const copyImg = img.copy();
+    const avg = getAverage(img);
+    for (let x = 0; x < copyImg.width; ++x) {
+        for (let y = 0; y < copyImg.height; ++y) {
+          copyImg.setPixel(x, y, avg);
+        }
+      }
+      return copyImg;
+}
 
 export function getAverage(img){
 
@@ -33,11 +33,44 @@ export function getAverage(img){
         count +=1;
       }
 
-    avg = [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)]
-    fs.appendFileSync("averages.csv",img.getName()+","+avg.toString()+"\n");
-    console.log("did it work")
+    avg = [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)];
+    const toAdd = img.getName()+","+avg.toString()+"\n"
+    const name = img.getName();
+
+
+
+    if (!csvArrayContains(name)) {
+        fs.appendFileSync("averages.csv",toAdd);
+    }
+    // console.log("did it work")
     // return [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)];
-    return avg
+    return avg;
+}
+
+export function getCSV(){
+    const csv = fs.readFileSync('averages.csv').toString();
+    var lines = csv.split("\n");
+    lines = lines.map(str => str.trim("\r"));
+    const colors = new Set();
+
+    lines.forEach(color => {
+        color = color.split(",");
+        colors.add(color);
+    })
+
+    return colors;
+}
+
+export function csvArrayContains(name){
+    const contents = getCSV();
+    var toReturn = false;
+    contents.forEach(sub => {
+        // console.log("name,sub",name === sub[0]);
+        if (name === sub[0]) {
+            toReturn = true;
+        };
+    })
+    return toReturn;
 }
 
 /**

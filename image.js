@@ -175,6 +175,7 @@ export class Image {
     );
     const root = process.cwd();
     const images_out = path.resolve(root, "images_out");
+    // const blocks_out = path.resolve(root,"blocks_out");
     if (!fs.existsSync(images_out)) {
       fs.mkdirSync(images_out);
     }
@@ -249,7 +250,7 @@ export class Image {
   }
 
   getName(){
-    let r = this.name.replace("images/","").replace(".png","");
+    let r = this.name.replace("images/blocks/","").replace(".png","");
     return r;
   }
 
