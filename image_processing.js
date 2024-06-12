@@ -89,6 +89,7 @@ export function csvArrayContains(name){
 }
 
 export function getClosestBlock(color){ // an rgb array
+    // console.log(color);
     let name = "";
     let threshold = Infinity;
     let red = 0, green = 0, blue = 0;
@@ -112,19 +113,17 @@ export function getClosestBlock(color){ // an rgb array
     return [name, blockAvg];
 }
 
-// get window average
-// get closest block
+
 
 // const WINDOW_SIZE = 100;
 const WINDOW_SIZE = 128;
 
 export function computeWindows(img){
-  const bruh = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
-  const pookie = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
-  console.log(bruh,pookie);
+  const WINDOW_WIDTH = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
+  const WINDOW_HEIGHT = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
 
-  const windowWidth = Math.floor(bruh/WINDOW_SIZE); // floor or ceil?
-  const windowHeight = Math.floor(pookie/WINDOW_SIZE); 
+  const windowWidth = Math.floor(WINDOW_WIDTH/WINDOW_SIZE); // floor or ceil?
+  const windowHeight = Math.floor(WINDOW_HEIGHT/WINDOW_SIZE); 
 
   // const windowWidth = Math.floor(img.width/4); // floor or ceil?
   // const windowHeight = Math.floor(img.height/4); 
@@ -132,8 +131,8 @@ export function computeWindows(img){
   let intervals = [];
   let xMin = 0, yMin = 0;
 
-  while (xMin < bruh){
-    while (yMin < pookie){
+  while (xMin < WINDOW_WIDTH){
+    while (yMin < WINDOW_HEIGHT){
       intervals.push([xMin,yMin,xMin+windowWidth,yMin+windowHeight]);
       yMin += windowHeight;
     }
@@ -142,8 +141,8 @@ export function computeWindows(img){
   }
 
   intervals = intervals.filter(sub=>{
-    if ((sub[2] > bruh) || (sub[0]>bruh)) return false;
-    if ((sub[3] > pookie) || (sub[1]>pookie)) return false;
+    if ((sub[2] > WINDOW_WIDTH) || (sub[0]>WINDOW_WIDTH)) return false;
+    if ((sub[3] > WINDOW_HEIGHT) || (sub[1]>WINDOW_HEIGHT)) return false;
     return true;
   });
 
@@ -156,14 +155,14 @@ export function mapToBlocks(img){
 
   const intervals = computeWindows(img);
   const result = Image.create(WINDOW_SIZE,WINDOW_SIZE,[0,0,0]);
-  // const result = Image.create(4,4,[255,255,255]);
 
   let xCounter = 0, yCounter = 0;
 
   intervals.forEach(interval=>{
     const avg = getWindowAverage(img,interval);
-    const color = getClosestBlock(avg)[1];
-    console.log("color",getClosestBlock(avg)[0]);
+    const block = getClosestBlock(avg);
+    const color = block[1];
+    fs.appendFileSync("image_blocks.csv",block[0].toString()+"\n");
 
     if (yCounter === WINDOW_SIZE) {
       xCounter += 1;

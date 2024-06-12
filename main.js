@@ -7,25 +7,12 @@ import fs from "fs";
 
 // console.log(getClosestBlock([219, 26, 155]));
 
-const img = Image.loadImageFromFile("images/snoopy.png");
-// console.log(img.width,img.height);
-// mapToBlocks(img).show();
-
-
-
-
-// const test_image = Image.create(296,172,[0,255,0]);
-// for (let i = 0; i<test_image.width;i++){
-//     for (let j = 0; j<test_image.height; j++) {
-//         if (i%2===0) test_image.setPixel(i,j,[255,0,0]);
-//         if (i%3===0) test_image.setPixel(i,j,[255,0,255]);
-//         if (i%4===0) test_image.setPixel(i,j,[0,255,255]);
-//     }
-// }
-// test_image.save("uneven_wide");
-// const img = Image.loadImageFromFile("images_out/uneven_wide.png");
+const img = Image.loadImageFromFile("images/kirb.png");
+console.log(img.getPixel(128,128));
 
 const intervals = computeWindows(img);
+
+
 
 // intervals.forEach(interval=>console.log(interval));
 console.log(intervals.length);
@@ -33,6 +20,7 @@ console.log(intervals.length);
 const result = mapToBlocks(img);
 result.show();
 console.log(result.width,result.height)
+
 
 // const canvas = Image.create(27,128,[0,255,0]);
 
