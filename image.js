@@ -260,12 +260,12 @@ export class Image {
    * @param y A number
    */
   assertCoordinatesInBounds(x, y) {
-    assert(Number.isInteger(x), "[image.ts] Invalid use of Image class, x coordinate must be an integer.");
-    assert(Number.isInteger(y), "[image.ts] Invalid use of Image class, y coordinate must be an integer.");
-    assert(x >= 0, "[image.ts] Invalid use of Image class, x coordinate must be non-negative.");
-    assert(x < this.width, "[image.ts] Invalid use of Image class,  x coordinate must be smaller than the width.");
-    assert(y >= 0, "[image.ts] Invalid use of Image class, y coordinate must be non-negative.");
-    assert(y < this.height, "[image.ts] Invalid use of Image class, y coordinate must be smaller than the height.");
+    // assert(Number.isInteger(x), "[image.ts] Invalid use of Image class, x coordinate must be an integer.");
+    // assert(Number.isInteger(y), "[image.ts] Invalid use of Image class, y coordinate must be an integer.");
+    // assert(x >= 0, "[image.ts] Invalid use of Image class, x coordinate must be non-negative.");
+    // assert(x < this.width, "[image.ts] Invalid use of Image class,  x coordinate must be smaller than the width.");
+    // assert(y >= 0, "[image.ts] Invalid use of Image class, y coordinate must be non-negative.");
+    // assert(y < this.height, "[image.ts] Invalid use of Image class, y coordinate must be smaller than the height.");
   }
 
     getOffset(x, y) {

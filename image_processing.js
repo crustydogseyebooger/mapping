@@ -115,20 +115,25 @@ export function getClosestBlock(color){ // an rgb array
 // get window average
 // get closest block
 
+// const WINDOW_SIZE = 100;
+const WINDOW_SIZE = 128;
+
 export function computeWindows(img){
-  // const bruh = img.width - img.width % 128;
-  // const pookie = img.height - img.height % 128;
-  // console.log(bruh,pookie);
-  const windowWidth = Math.floor(img.width/128); // floor or ceil?
-  const windowHeight = Math.floor(img.height/128); 
+  const bruh = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
+  const pookie = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
+  console.log(bruh,pookie);
 
+  const windowWidth = Math.floor(bruh/WINDOW_SIZE); // floor or ceil?
+  const windowHeight = Math.floor(pookie/WINDOW_SIZE); 
 
-  const off = 0;
+  // const windowWidth = Math.floor(img.width/4); // floor or ceil?
+  // const windowHeight = Math.floor(img.height/4); 
+
   let intervals = [];
-  let xMin = 0+off, yMin = 0+off;
+  let xMin = 0, yMin = 0;
 
-  while (xMin < img.width){
-    while (yMin < img.height){
+  while (xMin < bruh){
+    while (yMin < pookie){
       intervals.push([xMin,yMin,xMin+windowWidth,yMin+windowHeight]);
       yMin += windowHeight;
     }
@@ -137,47 +142,44 @@ export function computeWindows(img){
   }
 
   intervals = intervals.filter(sub=>{
-    if (sub[2] >= img.width) return false;
-    if (sub[3] >= img.height) return false;
+    if ((sub[2] > bruh) || (sub[0]>bruh)) return false;
+    if ((sub[3] > pookie) || (sub[1]>pookie)) return false;
     return true;
   });
 
-  const remove = (intervals.length - 16384)/2;
-  intervals = intervals.slice(remove,intervals.length-remove);
   return intervals;
 }
 
 
 export function mapToBlocks(img){
-  if (img.width < 128 || img.height < 128) return img; // needs error-handling
+  // if (img.width < 128 || img.height < 128) return img; // needs error-handling
 
   const intervals = computeWindows(img);
-  // const result = img.copy();
-  const result = Image.create(128,128,[0,0,0]);
+  const result = Image.create(WINDOW_SIZE,WINDOW_SIZE,[0,0,0]);
+  // const result = Image.create(4,4,[255,255,255]);
 
   let xCounter = 0, yCounter = 0;
 
   intervals.forEach(interval=>{
     const avg = getWindowAverage(img,interval);
     const color = getClosestBlock(avg)[1];
-    
-    if (yCounter === 128) {
+    console.log("color",getClosestBlock(avg)[0]);
+
+    if (yCounter === WINDOW_SIZE) {
       xCounter += 1;
       yCounter = 0;
     }
 
-    result.setPixel(xCounter,yCounter,color);
-    yCounter += 1;
-
+    result.setPixel(xCounter,yCounter,color);       
     
-
-    // map interval
-    // for (let i = interval[0]; i<interval[2];i++){
-    //   for (let j = interval[1]; j<interval[3]; j++){
-    //     result.setPixel(i,j,color);
-    //   }
-    // }
+    yCounter+=1;
   });
   return result;
 }
 
+// export function computeWindow(img){
+//   // how do we resize a rectangle into a square?
+//   // could either make mapping area wider OR crop to square and map
+
+
+// }
