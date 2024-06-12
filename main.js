@@ -1,24 +1,13 @@
 import {Image} from "../mapping/image.js"
-import { getAverage, getCSV } from "./image_processing.js";
+import { toAverage, getAverage, getCSV, closestBlock} from "./image_processing.js";
 import fs from "fs";
 
 
-// const csv = fs.readFileSync('averages.csv').toString();
-// var lines = csv.split("\n");
-// lines = lines.map(str => str.trim("\r"));
-// const colors = new Set();
-
-// lines.forEach(color => {
-//     color = color.split(",");
-//     colors.add(color);
-// })
-
 console.log(getCSV());
 
+console.log(closestBlock([0,255,68]));
 
-
-
-const img = Image.loadImageFromFile("images/blocks/cherry_wood_planks.png");
-getAverage(img);
-
-console.log("cherry_wood_planks" === "cherry_wood_planks")
+const im = Image.loadImageFromFile("images/blocks/lime_wool.png");
+const avg = toAverage(im)
+console.log(avg.width,avg.height);
+avg.show()

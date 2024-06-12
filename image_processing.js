@@ -5,7 +5,7 @@ import fs from "fs";
 
 
 
-function toAverage(img){
+export function toAverage(img){
     const copyImg = img.copy();
     const avg = getAverage(img);
     for (let x = 0; x < copyImg.width; ++x) {
@@ -13,7 +13,7 @@ function toAverage(img){
           copyImg.setPixel(x, y, avg);
         }
       }
-      return copyImg;
+    return copyImg;
 }
 
 export function getAverage(img){
@@ -37,13 +37,10 @@ export function getAverage(img){
     const toAdd = img.getName()+","+avg.toString()+"\n"
     const name = img.getName();
 
-
-
     if (!csvArrayContains(name)) {
         fs.appendFileSync("averages.csv",toAdd);
     }
-    // console.log("did it work")
-    // return [Math.floor(avg[0]/count),Math.floor(avg[1]/count),Math.floor(avg[2]/count)];
+
     return avg;
 }
 
@@ -65,13 +62,47 @@ export function csvArrayContains(name){
     const contents = getCSV();
     var toReturn = false;
     contents.forEach(sub => {
-        // console.log("name,sub",name === sub[0]);
         if (name === sub[0]) {
             toReturn = true;
         };
     })
     return toReturn;
 }
+
+export function closestBlock(color){ // an rgb array
+    let name = "";
+    let curr = Infinity;
+    let red = 0, green = 0, blue = 0;
+
+    const contents = getCSV();
+    contents.forEach(sub => {
+        if (sub.length!==4) return;
+
+        red = Math.abs(color[0]-sub[1]);
+        green = Math.abs(color[1]-sub[2]);
+        blue = Math.abs(color[2]-sub[3]);
+
+        if (red + green + blue < curr) {
+            name = sub[0];
+            curr = red + green + blue;
+        }
+    })
+
+    return name;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Saturates green color s each pixel of an image

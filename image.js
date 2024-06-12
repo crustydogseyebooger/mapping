@@ -9,7 +9,7 @@ import path from "path";
 import { PNG } from "pngjs";
 // PNG = require('pngjs').PNG;
 
-// import tmp from "tmp";
+import tmp from "tmp";
 
 const IMAGES_FOLDER = path.resolve(process.cwd(), "images");
 const IMAGE_GALLERY = fs.readdirSync(IMAGES_FOLDER).map(p => path.join(IMAGES_FOLDER, p));
