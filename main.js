@@ -7,15 +7,16 @@ import fs from "fs";
 
 // console.log(getClosestBlock([219, 26, 155]));
 
-// const img = Image.create(16,16,[0,255,0]);
-const img = Image.loadImageFromFile("images/snoopy.png")
+const img = Image.loadImageFromFile("images/snoopy.png");
 // console.log(img.width,img.height);
 mapToBlocks(img).show();
 
+// const canvas = document.getElementById("canvas");
+// const ctx = canvas.getContext("2d");
+// const image = document.getElementById("source");
+
+// image.addEventListener("load", (e) => {
+//   ctx.drawImage(image, 33, 71, 104, 124, 21, 20, 87, 104);
+// });
 
 
-
-// const im = Image.loadImageFromFile("images/blocks/cyan_wool.png");
-// const avg = toAverage(im)
-// console.log(avg.width,avg.height);
-// avg.show()

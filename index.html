@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lol</title>
+</head>
+<body>
+<h1>HTML5 Canvas</h1>
+<h2>The drawImage() Method</h2>
+
+<p>Image to use:</p>
+<img id="scream" src="../images/snoopy.png" alt="snoopy" width="531" height="502">
+
+<p><button onclick="draw()">Tryit</button></p>
+
+<p>Click Tryit to draw the image on the canvas.</p>
+<canvas id="myCanvas" width="250" height="300" style="border:1px solid grey"></canvas>
+
+<script>
+    function draw() {
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    const img = document.getElementById("scream");
+    ctx.drawImage(img, 10, 10);
+    }
+    </script>
+
+</body>
+</html>
