@@ -124,13 +124,9 @@ function computeWindows(img){
   const windowWidth = Math.floor(WINDOW_WIDTH/WINDOW_SIZE); // floor or ceil?
   const windowHeight = Math.floor(WINDOW_HEIGHT/WINDOW_SIZE); 
 
-  // const widthDiff = (img.width - WINDOW_WIDTH)/2;
-  // const heightDiff = (img.height - WINDOW_HEIGHT)/2;
 
   let intervals = [];
 
-  // const arr = compute/BigWindow(img);
-  // let xMin = arr[0], yMin = arr[1], xMax = arr[2], yMax = arr[3];
   let xMin = 0, yMin = 0;
 
   while (xMin < WINDOW_WIDTH){

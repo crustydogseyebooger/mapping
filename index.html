@@ -3,26 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Lol</title>
-    <!-- <script src="image_processing.js" type="module"></script> -->
 </head>
 <body>
 <h1>Upload image</h1>
+<!-- 
+<form method="post" action="">
+    <input type="file" id="image_input" accept="image/jpeg, image/png, image/jpg">
+    <input id="modified_image" name="image" type="hidden" value=""> -->
+    <!-- <input type="submit" value="Upload"> -->
+<!-- </form> -->
 
-<input type="file" onchange="previewFile()" /><br />
-<img src="" height="200" alt="Image preview" />
-<script src="script.js"></script>
+<form method="post" enctype="multipart/form-data" action="/upload">
+    <input type="file" name="file">
+    <input type="submit" value="Submit">
+</form>
+<script src="better_script.js"></script>
 
-<!-- <script src="script.js" type="module"></script> -->
-
-
-<div>
-    <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-    <label for="file" style="cursor: pointer;">Upload Image</label>
-    <img id="output" width="200" alt="bruh"/>
-</div>
-
-
-  
 
 
 </body>
