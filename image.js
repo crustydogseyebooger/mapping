@@ -8,30 +8,12 @@ var path = require('path');
 var PNG = require('pngjs').PNG;
 var tmp = require('tmp');
 
-// const IMAGES_FOLDER = path.resolve(process.cwd(), "images");
-// const IMAGE_GALLERY = fs.readdirSync(IMAGES_FOLDER).map(p => path.join(IMAGES_FOLDER, p));
-// // type ImageName = "art" | "bike" | "car" | "dog" | "food" | "landscape" | "pencils" | "pottery" | "tomato";
-
-// const CHANNEL_NAMES = ["red", "green", "blue"];
 
 /**
  * Throws an error if `color` is not a Color
  * @param color An array
  */
-function assertValidColor(color) {
-  // assert(color.length === 3);
-  // CHANNEL_NAMES.forEach((channel, i) => {
-  //   assert(
-  //     Number.isInteger(color[i]),
-  //     `[image.ts] Supplied invalid color. The ${channel} channel of the color must be an integer.`
-  //   );
-  //   assert(0 <= color[i], `[image.ts] Supplied invalid color. The ${channel} channel of the color must be at least 0.`);
-  //   assert(
-  //     color[i] <= 255,
-  //     `[image.ts] Supplied invalid color. The ${channel} channel of the color must be at most 255.`
-  //   );
-  // });
-}
+function assertValidColor(color) {}
 
 /**
  * Throws an error if `width` or `height` are invalid image dimensions
