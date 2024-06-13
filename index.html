@@ -11,14 +11,20 @@
 <br><img id="myImg" src="#" alt="i hate back end">
 
 <script type="module">
-    import { mapToBlocks } from './image_processing.js';
+    // import { mapToBlocks } from './image_processing.js'; // why can't i have this here?
+
     window.addEventListener('load', function() {
         document.querySelector('input[type="file"]').addEventListener('change', function() {
-            var img = document.querySelector('img');
-            const img_after = mapToBlocks(img); 
-            img.src = URL.createObjectURL(img_after);
+            if (this.files && this.files[0]) {
+                var img = document.querySelector('img');
+                img.onload = () => {
+                    URL.revokeObjectURL(img.src);  // no longer needed, free memory
+                }
+
+                img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+            }
         });
-    });
+});
 
 </script>
 
