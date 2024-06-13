@@ -6,7 +6,7 @@
 // actual image processing functions
 
 import {Image} from "../mapping/image.js";
-import fs from "fs";
+// import fs from "fs";
 
 
 

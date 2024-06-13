@@ -11,7 +11,7 @@
 
 import assert from "assert";
 import { exec } from "child_process";
-import fs from "fs";
+// import fs from "fs";
 import os from "os";
 import path from "path";
 import { PNG } from "pngjs";

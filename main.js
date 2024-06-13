@@ -10,7 +10,7 @@ import { mapToBlocks} from "./image_processing.js";
 
 // console.log(getClosestBlock([219, 26, 155]));
 
-const img = Image.loadImageFromFile("images/evermore.png");
+// const img = Image.loadImageFromFile("images/evermore.png");
 // console.log(img.getPixel(128,128));
 
 // const intervals = Image_Processing.computeWindows(img);
@@ -26,8 +26,8 @@ const img = Image.loadImageFromFile("images/evermore.png");
 // const result = Image_Processing.makeNewImage(img);
 // console.log(result.width,result.height);
 // result.show();
-const res = mapToBlocks(img);
-res.show();
+// const res = mapToBlocks(img);
+// res.show();
 
 // result.show();
 
