@@ -171,6 +171,7 @@ function mapToBlocks(image){
     
     yCounter+=1;
   });
+  result.save("pookie");
   return result;
 }
 

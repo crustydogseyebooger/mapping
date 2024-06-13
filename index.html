@@ -6,18 +6,23 @@
 </head>
 <body>
 <h1>Upload image</h1>
-<!-- 
-<form method="post" action="">
-    <input type="file" id="image_input" accept="image/jpeg, image/png, image/jpg">
-    <input id="modified_image" name="image" type="hidden" value=""> -->
-    <!-- <input type="submit" value="Upload"> -->
-<!-- </form> -->
 
-<form method="post" enctype="multipart/form-data" action="/upload">
-    <input type="file" name="file">
-    <input type="submit" value="Submit">
-</form>
-<script src="better_script.js"></script>
+<input type='file' />
+<br><img id="myImg" src="#" alt="i hate back end">
+
+<script type="module">
+    import { mapToBlocks } from './image_processing.js';
+    window.addEventListener('load', function() {
+        document.querySelector('input[type="file"]').addEventListener('change', function() {
+            var img = document.querySelector('img');
+            const img_after = mapToBlocks(img);
+            img.src = URL.createObjectURL(img_after);
+        });
+    });
+
+
+</script>
+
 
 
 
