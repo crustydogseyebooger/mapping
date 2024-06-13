@@ -21,18 +21,12 @@ function assertValidColor(color) {}
  * @param height A number
  */
 function assertValidWidthAndHeight(width, height) {
-//   assert(Number.isInteger(width), "[image.ts] Invalid use of Image class. Image width must be an integer.");
-//   assert(Number.isInteger(height), "[image.ts] Invalid use of Image class. Image height must be an integer.");
-
   assert(width > 0, "[image.ts] Invalid use of Image class. Image width must be greater than 0.");
   assert(height > 0, "[image.ts] Invalid use  of Image class. Image height must be greater than 0.");
 
   assert(width < 5000, "[image.ts] Invalid use of Image class. Image width must be less than 5000.");
   assert(height < 5000, "[image.ts] Invalid use of Image class. Image height must be less than 5000.");
 }
-
-// export type Color = number[];
-
 
 
 
