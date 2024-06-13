@@ -1,12 +1,22 @@
+// helper functions
+// var assert = require('assert');
+// var exec = require('child_process');
+// var fs = require('fs');
+// var os = require('os');
+// var path = require('path');
+// var PNG = require('pngjs').PNG;
+// var tmp = require('tmp');
+
 // // helper functions
-var assert = require('assert');
-var exec = require('child_process');
-// var exec = require('exec');
-var fs = require('fs');
-var os = require('os');
-var path = require('path');
-var PNG = require('pngjs').PNG;
-var tmp = require('tmp');
+
+import assert from "assert";
+import { exec } from "child_process";
+import fs from "fs";
+import os from "os";
+import path from "path";
+import { PNG } from "pngjs";
+import tmp from "tmp";
+
 
 
 /**

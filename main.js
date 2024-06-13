@@ -1,5 +1,9 @@
-var Image = require("../mapping/image.js")
-var Image_Processing = require("./image_processing.js")
+// var Image = require("../mapping/image.js")
+// var Image_Processing = require("./image_processing.js")
+
+import {Image} from "../mapping/image.js"
+import { mapToBlocks} from "./image_processing.js";
+// import fs from "fs";
 
 
 // console.log(getCSV());
@@ -22,7 +26,7 @@ const img = Image.loadImageFromFile("images/evermore.png");
 // const result = Image_Processing.makeNewImage(img);
 // console.log(result.width,result.height);
 // result.show();
-const res = Image_Processing.mapToBlocks(img);
+const res = mapToBlocks(img);
 res.show();
 
 // result.show();

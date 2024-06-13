@@ -1,7 +1,13 @@
 // actual image processing functions
 
-var Image = require("../mapping/image.js")
-var fs = require('fs');
+// var Image = require("../mapping/image.js")
+// var fs = require('fs');
+
+// actual image processing functions
+
+import {Image} from "../mapping/image.js";
+import fs from "fs";
+
 
 
 function toAverage(img){
@@ -148,7 +154,7 @@ function computeWindows(img){
 }
 
 
-function mapToBlocks(image){
+export function mapToBlocks(image){
   // if (img.width < 128 || img.height < 128) return img; // needs error-handling
   const img = makeNewImage(image);
   const intervals = computeWindows(img);
@@ -212,6 +218,6 @@ function makeNewImage(img){
 
 }
 
-exports.makeNewImage = makeNewImage;
-exports.computeWindows = computeWindows;
-exports.mapToBlocks = mapToBlocks;
+// exports.makeNewImage = makeNewImage;
+// exports.computeWindows = computeWindows;
+// exports.mapToBlocks = mapToBlocks;
