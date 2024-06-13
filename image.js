@@ -40,7 +40,7 @@ function assertValidWidthAndHeight(width, height) {
 
 
 
-class Image {
+export class Image {
 
   /**
    * Loads an image from the file system into memory as an `Image` object.
@@ -179,10 +179,14 @@ class Image {
 
     if (os.platform() === "darwin") {
       // macOS
-      exec.exec(`open ${temp.name}`);
+      // exec.exec(`open ${temp.name}`);
+      exec(`open ${temp.name}`);
+
     } else {
       // if code is not in $PATH, this will not work
-      exec.exec(`code --reuse-window ${temp.name}`);
+      // exec.exec(`code --reuse-window ${temp.name}`);
+      exec(`code --reuse-window ${temp.name}`);
+
     }
   }
 
@@ -256,4 +260,4 @@ class Image {
   }
 }
 
-module.exports = Image;
+// module.exports = Image;
