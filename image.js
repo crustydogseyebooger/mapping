@@ -1,16 +1,4 @@
 // // helper functions
-
-// import assert from "assert";
-// import { exec } from "child_process";
-// import fs from "fs";
-// import os from "os";
-// import path from "path";
-
-// import { PNG } from "pngjs";
-
-// import tmp from "tmp";
-
-
 var assert = require('assert');
 var exec = require('child_process');
 // var exec = require('exec');
@@ -20,11 +8,11 @@ var path = require('path');
 var PNG = require('pngjs').PNG;
 var tmp = require('tmp');
 
-const IMAGES_FOLDER = path.resolve(process.cwd(), "images");
-const IMAGE_GALLERY = fs.readdirSync(IMAGES_FOLDER).map(p => path.join(IMAGES_FOLDER, p));
-// type ImageName = "art" | "bike" | "car" | "dog" | "food" | "landscape" | "pencils" | "pottery" | "tomato";
+// const IMAGES_FOLDER = path.resolve(process.cwd(), "images");
+// const IMAGE_GALLERY = fs.readdirSync(IMAGES_FOLDER).map(p => path.join(IMAGES_FOLDER, p));
+// // type ImageName = "art" | "bike" | "car" | "dog" | "food" | "landscape" | "pencils" | "pottery" | "tomato";
 
-const CHANNEL_NAMES = ["red", "green", "blue"];
+// const CHANNEL_NAMES = ["red", "green", "blue"];
 
 /**
  * Throws an error if `color` is not a Color

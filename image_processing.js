@@ -1,8 +1,5 @@
 // actual image processing functions
 
-// import {Image} from "../mapping/image.js";
-// import fs from "fs";
-
 var Image = require("../mapping/image.js")
 var fs = require('fs');
 
@@ -121,8 +118,6 @@ function getClosestBlock(color){ // an rgb array
 const WINDOW_SIZE = 128;
 
 function computeWindows(img){
-  
-
   const WINDOW_WIDTH = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
   const WINDOW_HEIGHT = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
 
@@ -133,6 +128,9 @@ function computeWindows(img){
   // const heightDiff = (img.height - WINDOW_HEIGHT)/2;
 
   let intervals = [];
+
+  // const arr = compute/BigWindow(img);
+  // let xMin = arr[0], yMin = arr[1], xMax = arr[2], yMax = arr[3];
   let xMin = 0, yMin = 0;
 
   while (xMin < WINDOW_WIDTH){
@@ -154,9 +152,9 @@ function computeWindows(img){
 }
 
 
-function mapToBlocks(img){
+function mapToBlocks(image){
   // if (img.width < 128 || img.height < 128) return img; // needs error-handling
-
+  const img = makeNewImage(image);
   const intervals = computeWindows(img);
   const result = Image.create(WINDOW_SIZE,WINDOW_SIZE,[0,0,0]);
 
@@ -180,13 +178,43 @@ function mapToBlocks(img){
   return result;
 }
 
-// export function computeWindow(img){
-//   // how do we resize a rectangle into a square?
-//   // could either make mapping area wider OR crop to square and map
+function makeNewImage(img){
+  const WINDOW_WIDTH = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
+  const WINDOW_HEIGHT = Math.floor(img.width/WINDOW_SIZE)*WINDOW_SIZE;
 
+  const xDiff = (img.width - WINDOW_WIDTH)/2;
+  const yDiff = (img.width - WINDOW_WIDTH)/2;
 
-// }
+  let xMin = xDiff;
+  let yMin = yDiff;
 
-// module.exports = computeWindows;
+  let xMax = WINDOW_WIDTH + xDiff;
+  let yMax = WINDOW_HEIGHT + yDiff;
+
+  const result = Image.create(xMax-xMin,yMax-yMin,[0,0,0]);
+
+  
+  let i = xMin, j = yMin;
+  let x = 0, y = 0;
+  while (i<img.width){
+    while (j<img.height){
+      if ( (i>=xMin && i<xMax) && (j>=yMin && j<yMax)) {
+        result.setPixel(x,y,img.getPixel(i,j));
+      }
+      j+=1;
+      y+=1;
+    }
+    j = yMin;
+    i+=1;
+
+    y = 0;
+    x+=1;
+  }
+
+  return result;
+
+}
+
+exports.makeNewImage = makeNewImage;
 exports.computeWindows = computeWindows;
 exports.mapToBlocks = mapToBlocks;
